@@ -8,8 +8,17 @@
 		"BlobMetadataSqlConnection_connectionString": {
 			"value": ""
 		},
+		"OrganizedDLSConnection_accountKey": {
+			"value": ""
+		},
 		"trainingkeyvault_properties_typeProperties_baseUrl": {
 			"value": "https://jelazarKeyVault.vault.azure.net/"
+		},
+		"DLSTargetProvider_properties_typeProperties_functionAppUrl": {
+			"value": "https://dlstargetprovider20201125160234.azurewebsites.net"
+		},
+		"OrganizedDLSConnection_properties_typeProperties_url": {
+			"value": "https://jelazarstorage.dfs.core.windows.net"
 		}
 	}
 }
