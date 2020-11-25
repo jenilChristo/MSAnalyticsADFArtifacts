@@ -1,0 +1,19 @@
+{
+	"name": "BlobMetadataSqlConnection",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"connectionString": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=jelazarsqldb.database.windows.net;Initial Catalog=jelazar01;User ID=jelazar01",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "trainingkeyvault",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "jelazarsqldbkey"
+			}
+		}
+	}
+}
