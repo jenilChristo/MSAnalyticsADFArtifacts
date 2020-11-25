@@ -6,56 +6,12 @@
 			"type": "string",
 			"metadata": "Data Factory name",
 			"defaultValue": "TrainingDataFactoryjenil"
-		},
-		"BlobMetadataSqlConnection_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'BlobMetadataSqlConnection'"
-		},
-		"trainingkeyvault_properties_typeProperties_baseUrl": {
-			"type": "string",
-			"defaultValue": "https://jelazarKeyVault.vault.azure.net/"
 		}
 	},
 	"variables": {
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
-		{
-			"name": "[concat(parameters('factoryName'), '/BlobMetadataSqlConnection')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureSqlDatabase",
-				"typeProperties": {
-					"connectionString": "[parameters('BlobMetadataSqlConnection_connectionString')]",
-					"password": {
-						"type": "AzureKeyVaultSecret",
-						"store": {
-							"referenceName": "trainingkeyvault",
-							"type": "LinkedServiceReference"
-						},
-						"secretName": "jelazarsqldbkey"
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/trainingkeyvault')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/trainingkeyvault')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureKeyVault",
-				"typeProperties": {
-					"baseUrl": "[parameters('trainingkeyvault_properties_typeProperties_baseUrl')]"
-				}
-			},
-			"dependsOn": []
-		},
 		{
 			"name": "[concat(parameters('factoryName'), '/BlobMetaDataTable')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
@@ -135,17 +91,6 @@
 					"schema": "dbo",
 					"table": "BlobMetadata"
 				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/BlobMetadataSqlConnection')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": []
 			},
 			"dependsOn": []
 		}
