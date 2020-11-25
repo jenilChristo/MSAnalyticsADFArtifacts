@@ -5,8 +5,11 @@
 		"factoryName": {
 			"value": "TrainingDataFactoryjenil"
 		},
+		"BlobMetadataSqlConnection_connectionString": {
+			"value": ""
+		},
 		"trainingkeyvault_properties_typeProperties_baseUrl": {
-			"value": "https://jenilKeyVault.vault.azure.net/"
+			"value": "https://jelazarKeyVault.vault.azure.net/"
 		}
 	}
 }

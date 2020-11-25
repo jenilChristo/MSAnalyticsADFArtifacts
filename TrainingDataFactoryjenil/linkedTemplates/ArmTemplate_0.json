@@ -7,9 +7,13 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "TrainingDataFactoryjenil"
 		},
+		"BlobMetadataSqlConnection_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'BlobMetadataSqlConnection'"
+		},
 		"trainingkeyvault_properties_typeProperties_baseUrl": {
 			"type": "string",
-			"defaultValue": "https://jenilKeyVault.vault.azure.net/"
+			"defaultValue": "https://jelazarKeyVault.vault.azure.net/"
 		}
 	},
 	"variables": {
@@ -28,6 +32,29 @@
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/BlobMetadataSqlConnection')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": "[parameters('BlobMetadataSqlConnection_connectionString')]",
+					"password": {
+						"type": "AzureKeyVaultSecret",
+						"store": {
+							"referenceName": "trainingkeyvault",
+							"type": "LinkedServiceReference"
+						},
+						"secretName": "jelazarsqldbkey"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/trainingkeyvault')]"
+			]
 		}
 	]
 }
