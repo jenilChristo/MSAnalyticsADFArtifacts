@@ -119,64 +119,6 @@
 								"enableStaging": false,
 								"translator": {
 									"type": "TabularTranslator",
-									"mappings": [
-										{
-											"source": {
-												"name": "orderid"
-											},
-											"sink": {
-												"name": "orderid"
-											}
-										},
-										{
-											"source": {
-												"name": "orderdate"
-											},
-											"sink": {
-												"name": "orderdate"
-											}
-										},
-										{
-											"source": {
-												"name": "customer"
-											},
-											"sink": {
-												"name": "customer"
-											}
-										},
-										{
-											"source": {
-												"name": "product"
-											},
-											"sink": {
-												"name": "product"
-											}
-										},
-										{
-											"source": {
-												"name": "units"
-											},
-											"sink": {
-												"name": "units"
-											}
-										},
-										{
-											"source": {
-												"name": "billingaddress"
-											},
-											"sink": {
-												"name": "billingaddress"
-											}
-										},
-										{
-											"source": {
-												"name": "remarks"
-											},
-											"sink": {
-												"name": "remarks"
-											}
-										}
-									],
 									"typeConversion": true,
 									"typeConversionSettings": {
 										"allowDataTruncation": true,
@@ -189,18 +131,9 @@
 									"referenceName": "OrdersBlobStorageDataset",
 									"type": "DatasetReference",
 									"parameters": {
-										"containerName": {
-											"value": "@activity('Load Processable Blobs').output.containerName",
-											"type": "Expression"
-										},
-										"folder": {
-											"value": "@activity('Load Processable Blobs').output.path",
-											"type": "Expression"
-										},
-										"filePath": {
-											"value": "@activity('Load Processable Blobs').output.blobName",
-											"type": "Expression"
-										}
+										"containerName": "orders",
+										"folder": "/",
+										"filePath": "orders-2"
 									}
 								}
 							],
