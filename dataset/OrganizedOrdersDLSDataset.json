@@ -1,5 +1,5 @@
 {
-	"name": "OrganizedOrders",
+	"name": "OrganizedOrdersDLSDataset",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "OrganizedDLSConnection",
