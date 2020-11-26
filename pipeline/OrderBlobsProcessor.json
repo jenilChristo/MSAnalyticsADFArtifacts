@@ -73,9 +73,89 @@
 								}
 							},
 							"linkedServiceName": {
-								"referenceName": "AzureFunction1",
+								"referenceName": "DLSTargetProvider",
 								"type": "LinkedServiceReference"
 							}
+						},
+						{
+							"name": "Copy Blob Storage to DLS",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "DelimitedTextSource",
+									"storeSettings": {
+										"type": "AzureBlobStorageReadSettings",
+										"recursive": true
+									},
+									"formatSettings": {
+										"type": "DelimitedTextReadSettings"
+									}
+								},
+								"sink": {
+									"type": "ParquetSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									},
+									"formatSettings": {
+										"type": "ParquetWriteSettings"
+									}
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "OrdersBlobStorageDataset",
+									"type": "DatasetReference",
+									"parameters": {
+										"containerName": {
+											"value": "@activity('Load Processable Blobs').output.containerName",
+											"type": "Expression"
+										},
+										"folder": {
+											"value": "@activity('Load Processable Blobs').output.path",
+											"type": "Expression"
+										},
+										"filePath": {
+											"value": "@activity('Load Processable Blobs').output.blobName",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "OrganizedOrdersDLSDataset",
+									"type": "DatasetReference",
+									"parameters": {
+										"fileSystemName": "organized-data",
+										"folder": {
+											"value": "@activity('Load Processable Blobs').output.targetOrganizedFullPath",
+											"type": "Expression"
+										},
+										"fileName": {
+											"value": "@activity('Load Processable Blobs').output.targetOrganizedFileName",
+											"type": "Expression"
+										}
+									}
+								}
+							]
 						}
 					]
 				}
